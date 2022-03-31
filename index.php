@@ -49,7 +49,7 @@ array_pop($id);
                 foreach ($id as $val):
                     //getting percentage of interaction and formatting number to have 2 decimal numbers.
                     $average = $count[$val] / $total * 100;
-                    $average = number_format($average, 2, '.', '');
+                    $average = number_format($average, 0, '.', '');
 
             ?>
             <th scope="row"> <?=$val?> </th>
