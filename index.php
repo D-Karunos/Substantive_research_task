@@ -1,17 +1,25 @@
 <?php 
 
-
-$interaction_names = ['Healthcare', 'Real Estate', 'Materials', 'Communication Services', 'Consumer Discretionary',
-'Industrials', 'Consumer Staples', 'Financials', 'Information Technology', 'Energy', 'Utilities'];
-
 //pulling data from .CSV
 if (($handle = fopen("interactions.csv", "r")) !== FALSE) {
     $id = array();
+    $interaction_names = array();
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+
+        //adding ID's in array to count their ammounts.
         array_push($id, $data[0]);
+
+        //checking if array with refferal key already exists
+        $check = array_key_exists($data[0], $interaction_names);
+        if (!$check){
+            $interaction_names[$data[0]] = $data[1];
+            
+        }
+
     }
     fclose($handle);
 }
+
 
 //Getting some numbers for percentage calculation
 //getting total number of records
@@ -53,7 +61,7 @@ array_pop($id);
 
             ?>
             <th scope="row"> <?=$val?> </th>
-            <td><?=$interaction_names[$val-1] ?></td>
+            <td><?=$interaction_names[$val] ?></td>
             <td><?=$average ?>%</td>
         </tr>
             <?php endforeach ?>
